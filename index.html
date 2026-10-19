@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abapo-Synth: audio examples</title>
+<meta name="description" content="Audio examples and use cases for the Abapo-Synth, a Max for Live device that combines a RAVE model trained on Brazilian percussion with granular synthesis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+<!--
+  CHECKLIST ANTES DE PUBLICAR (procure por "TODO" neste arquivo)
+  1. Lista EXAMPLES no <script>: coloque o nome de cada pasta dentro de audio/ e o nome que aparece na página.
+  2. Use cases: IDs do YouTube e/ou arquivos de áudio (deixe "" se não houver).
+  3. Estrutura esperada: index.html + audio/<pasta>/<pasta>_<versão>.mp3
+-->
+
+<style>
+  :root {
+    --bg: #fbfcfe;
+    --ink: #12203a;
+    --muted: #55607a;
+    --line: #d9dee8;
+    --blue: #1f4fa3;
+    --green: #2c7a4b;
+    --ochre: #c98a00;
+    --focus: #1f4fa3;
+    --sans: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1626;
+      --ink: #e8ecf5;
+      --muted: #9aa6bf;
+      --line: #2a3550;
+      --blue: #6c93e6;
+      --green: #5fbf86;
+      --ochre: #e5b53a;
+      --focus: #9db9f2;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { color-scheme: light dark; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 1.0625rem/1.6 var(--serif);
+  }
+  a { color: var(--blue); text-underline-offset: 3px; }
+  a:focus-visible, audio:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+  header { padding: 64px 0 28px; }
+  h1 {
+    margin: 0 0 12px;
+    font: 700 clamp(2.6rem, 6vw, 4.6rem)/1 var(--sans);
+    letter-spacing: -0.03em;
+  }
+  .subtitle { margin: 0 0 20px; max-width: 46rem; font-size: 1.2rem; color: var(--muted); }
+  nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; font: 500 1rem var(--sans); }
+
+  .intro { max-width: 44rem; margin: 8px 0 0; }
+  .intro p { margin: 0 0 14px; }
+
+  h2 { margin: 56px 0 12px; font: 700 1.6rem/1.2 var(--sans); letter-spacing: -0.01em; }
+
+  /* ---- Tabela de exemplos ---- */
+  table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; margin-top: 12px; }
+  thead th { text-align: left; vertical-align: top; font: 700 .98rem/1.25 var(--sans); }
+  th.version {
+    position: relative;
+    padding: 16px 14px 14px 0;
+    background: var(--bar) no-repeat top left / calc(100% - 14px) 4px;
+  }
+  th.version small { display: block; margin-top: 5px; font: 400 .84rem/1.35 var(--serif); color: var(--muted); }
+  th.rowhead { width: 120px; padding: 16px 14px 16px 0; text-align: left; font: 700 1rem/1.25 var(--sans); vertical-align: top; }
+  th.rowhead small { display: block; margin-top: 4px; font: 400 .84rem/1.35 var(--serif); color: var(--muted); }
+  td { padding: 14px 14px 14px 0; border-top: 1px solid var(--line); vertical-align: middle; }
+  th.rowhead { border-top: 1px solid var(--line); }
+  audio { display: block; width: 100%; height: 40px; }
+  .missing { margin: 0; font-size: .85rem; color: var(--muted); overflow-wrap: anywhere; }
+
+  .v-original      { --bar: linear-gradient(var(--muted), var(--muted)); --bar-v: linear-gradient(var(--muted), var(--muted)); }
+  .v-reconstructed { --bar: linear-gradient(var(--blue), var(--blue));   --bar-v: linear-gradient(var(--blue), var(--blue)); }
+  .v-latent        { --bar: linear-gradient(var(--green), var(--green)); --bar-v: linear-gradient(var(--green), var(--green)); }
+  .v-output        { --bar: linear-gradient(var(--ochre), var(--ochre)); --bar-v: linear-gradient(var(--ochre), var(--ochre)); }
+  .v-latent_output {
+    --bar: linear-gradient(90deg, var(--green) 50%, var(--ochre) 50%);
+    --bar-v: linear-gradient(180deg, var(--green) 50%, var(--ochre) 50%);
+  }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* ---- Casos de uso ---- */
+  .usecase { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; padding: 28px 0; border-top: 1px solid var(--line); align-items: start; }
+  .usecase h3 { margin: 0 0 8px; font: 700 1.2rem/1.25 var(--sans); }
+  .usecase p { margin: 0 0 12px; max-width: 34rem; }
+  .video { position: relative; aspect-ratio: 16 / 9; background: var(--line); }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+  footer { margin: 56px 0 64px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: .95rem; }
+  footer p { margin: 0 0 8px; max-width: 46rem; }
+
+  /* ---- Telas estreitas: cada exemplo vira um bloco com 5 players empilhados ---- */
+  @media (max-width: 1100px) {
+    header { padding-top: 40px; }
+    table, thead, tbody, tr, th, td { display: block; }
+    thead { position: absolute; left: -9999px; }
+    tr.example { padding: 20px 0 8px; border-top: 1px solid var(--line); }
+    th.rowhead { width: auto; padding: 0 0 10px; border-top: 0; }
+    td { padding: 8px 0 8px 14px; border: 0; background: var(--bar-v) no-repeat left top / 4px 100%; }
+    td::before { content: attr(data-label); display: block; margin-bottom: 4px; font: 700 .9rem/1.25 var(--sans); }
+    .usecase { grid-template-columns: 1fr; gap: 16px; }
+  }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Abapo-Synth</h1>
+    <p class="subtitle">Audio examples for “The Abapo-Synth: A Brazilian percussion texture synthesizer”</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p>Abapo-Synth is a Max for Live device that combines a RAVE model trained on Brazilian percussion recordings with two granular stages: one in the model’s latent space and one on its audio output.</p>
+      <p>Each row below is one input sound processed five ways. Playing a clip pauses the others, so you can switch between versions and compare. All clips are loudness-normalized to −16 LUFS. The originals are mono and play on both channels.</p>
+    </section>
+
+    <h2 id="examples-title">Audio examples</h2>
+    <noscript><p>This page needs JavaScript to show the audio examples.</p></noscript>
+    <table id="examples" aria-labelledby="examples-title">
+      <thead><tr></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>Use cases</h2>
+    <div id="usecases"></div>
+  </main>
+
+  <footer>
+    <p>The model was trained on the Brazilian Rhythmic Instruments Dataset (BRID) and a curated selection of Freesound recordings. See the paper for details.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Pasta que contém as subpastas de áudio.
+  const AUDIO_ROOT = "audio";
+
+  // As cinco versões de cada exemplo. A chave é o sufixo do nome do arquivo (NN_nome_<chave>.mp3).
+  const VERSIONS = [
+    { key: "original",      title: "Original",                          desc: "Input recording, mono" },
+    { key: "reconstructed", title: "Reconstructed",                     desc: "Encoded and decoded, no granulation" },
+    { key: "latent",        title: "Granulated latent space",           desc: "Granular stage in the latent space" },
+    { key: "output",        title: "Granulated output",                 desc: "Granular stage on the decoded audio" },
+    { key: "latent_output", title: "Granulated latent space and output", desc: "Both granular stages" }
+  ];
+
+  // TODO: uma linha por exemplo.
+  //   folder: nome da pasta dentro de audio/ (o mesmo prefixo dos arquivos, ex.: "01_pandeiro")
+  //   label:  nome que aparece na página
+  //   note:   opcional, por exemplo os valores dos knobs usados; deixe "" para não mostrar nada
+  const EXAMPLES = [
+    { folder: "01_sample_1", label: "Sample 1", note: "" },
+    { folder: "02_sample_2", label: "Sample 2", note: "" },
+    { folder: "03_sample_3", label: "Sample 3", note: "" },
+    { folder: "04_sample_4", label: "Sample 4", note: "" },
+    { folder: "05_sample_5", label: "Sample 5", note: "" },
+    { folder: "06_sample_6", label: "Sample 6", note: "" },
+    { folder: "07_sample_7", label: "Sample 7", note: "" },
+    { folder: "08_sample_8", label: "Sample 8", note: "" }
+  ];
+
+  // TODO: vídeo do YouTube (só o ID, a parte depois de "v=") e/ou um áudio (ex.: "audio/usecases/sergipe_stereo.mp3").
+  // Deixe "" quando não houver.
+  const USE_CASES = [
+    {
+      title: "Live performance, Sonar Festival 2025, Barcelona",
+      text: "A live collaborative performance presented through an open call for artists researching AI and music. A small-diaphragm condenser microphone captured the vibration of a metal drum, and Abapo-Synth processed the sound live to build a soundscape.",
+      youtube: "",
+      audio: ""
+    },
+    {
+      title: "Quadraphonic sound art piece, Aracaju, Sergipe",
+      text: "A piece built from a single recorded phrase, transformed with the timbre-transfer and granular modules. The latent axes and the three macro controls were automated to create settling and unsettling moments. It was first played at an experimental music exhibition in Aracaju, Sergipe, Brazil. The recording here is a stereo downmix of the quadraphonic piece.",
+      youtube: "",
+      audio: ""
+    }
+  ];
+
+  function el(tag, attrs, text) {
+    const node = document.createElement(tag);
+    if (attrs) for (const k in attrs) node.setAttribute(k, attrs[k]);
+    if (text) node.textContent = text;
+    return node;
+  }
+
+  function buildAudio(src, label) {
+    const a = el("audio", { controls: "", preload: "metadata", src: src, "aria-label": label });
+    a.addEventListener("error", () => {
+      const msg = el("p", { class: "missing" }, "Audio file not found: " + src);
+      a.replaceWith(msg);
+    });
+    return a;
+  }
+
+  function buildTable() {
+    const headRow = document.querySelector("#examples thead tr");
+    const body = document.querySelector("#examples tbody");
+
+    const corner = el("th", { scope: "col" });
+    corner.appendChild(el("span", { class: "sr-only" }, "Example"));
+    headRow.appendChild(corner);
+
+    VERSIONS.forEach(v => {
+      const th = el("th", { scope: "col", class: "version v-" + v.key }, v.title);
+      th.appendChild(el("small", null, v.desc));
+      headRow.appendChild(th);
+    });
+
+    EXAMPLES.forEach(ex => {
+      const tr = el("tr", { class: "example" });
+      const head = el("th", { scope: "row", class: "rowhead" }, ex.label);
+      if (ex.note) head.appendChild(el("small", null, ex.note));
+      tr.appendChild(head);
+
+      VERSIONS.forEach(v => {
+        const td = el("td", { class: "v-" + v.key, "data-label": v.title });
+        const src = AUDIO_ROOT + "/" + ex.folder + "/" + ex.folder + "_" + v.key + ".mp3";
+        td.appendChild(buildAudio(src, ex.label + ": " + v.title));
+        tr.appendChild(td);
+      });
+      body.appendChild(tr);
+    });
+  }
+
+  function buildUseCases() {
+    const root = document.getElementById("usecases");
+    USE_CASES.forEach(u => {
+      const box = el("div", { class: "usecase" });
+      const text = el("div");
+      text.appendChild(el("h3", null, u.title));
+      text.appendChild(el("p", null, u.text));
+      if (u.audio) text.appendChild(buildAudio(u.audio, u.title));
+      box.appendChild(text);
+
+      if (u.youtube) {
+        const wrap = el("div", { class: "video" });
+        wrap.appendChild(el("iframe", {
+          src: "https://www.youtube-nocookie.com/embed/" + u.youtube,
+          title: u.title,
+          loading: "lazy",
+          allow: "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+          allowfullscreen: ""
+        }));
+        box.appendChild(wrap);
+      }
+      root.appendChild(box);
+    });
+  }
+
+  // Só um áudio toca por vez, para facilitar a comparação.
+  document.addEventListener("play", e => {
+    document.querySelectorAll("audio").forEach(a => { if (a !== e.target) a.pause(); });
+  }, true);
+
+  buildTable();
+  buildUseCases();
+</script>
+</body>
+</html>
