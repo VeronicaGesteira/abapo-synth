@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Abapo-Synth: audio examples</title>
 <meta name="description" content="Audio examples and use cases for the Abapo-Synth, a Max for Live device that combines a RAVE model trained on Brazilian percussion with granular synthesis.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 
 <!--
   CHECKLIST ANTES DE PUBLICAR (procure por "TODO" neste arquivo)
@@ -18,92 +15,65 @@
 
 <style>
   :root {
-    --bg: #fbfcfe;
-    --ink: #12203a;
-    --muted: #55607a;
-    --line: #d9dee8;
-    --blue: #1f4fa3;
-    --green: #2c7a4b;
-    --ochre: #c98a00;
-    --focus: #1f4fa3;
-    --sans: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0f1626;
-      --ink: #e8ecf5;
-      --muted: #9aa6bf;
-      --line: #2a3550;
-      --blue: #6c93e6;
-      --green: #5fbf86;
-      --ochre: #e5b53a;
-      --focus: #9db9f2;
-    }
+    --bg: #fff;
+    --ink: #000;
+    --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
   * { box-sizing: border-box; }
-  html { color-scheme: light dark; }
+  html { color-scheme: light; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font: 400 1.0625rem/1.6 var(--serif);
+    font: 400 1.0625rem/1.6 var(--font);
   }
-  a { color: var(--blue); text-underline-offset: 3px; }
-  a:focus-visible, audio:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+  a { color: var(--ink); text-underline-offset: 3px; }
+  a:focus-visible, audio:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
 
   .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
 
-  header { padding: 64px 0 28px; }
+  header { padding: 64px 0 28px; text-align: center; }
   h1 {
     margin: 0 0 12px;
-    font: 700 clamp(2.6rem, 6vw, 4.6rem)/1 var(--sans);
+    font: 700 clamp(2.6rem, 6vw, 4.6rem)/1 var(--font);
     letter-spacing: -0.03em;
   }
-  .subtitle { margin: 0 0 20px; max-width: 46rem; font-size: 1.2rem; color: var(--muted); }
-  nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; font: 500 1rem var(--sans); }
+  .subtitle { margin: 0 auto 20px; max-width: 46rem; font-size: 1.2rem; }
 
-  .intro { max-width: 44rem; margin: 8px 0 0; }
+  .intro { max-width: 44rem; margin: 8px auto 0; text-align: center; }
   .intro p { margin: 0 0 14px; }
 
-  h2 { margin: 56px 0 12px; font: 700 1.6rem/1.2 var(--sans); letter-spacing: -0.01em; }
+  h2 { margin: 56px 0 12px; font: 700 1.6rem/1.2 var(--font); letter-spacing: -0.01em; }
 
   /* ---- Tabela de exemplos ---- */
   table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; margin-top: 12px; }
-  thead th { text-align: left; vertical-align: top; font: 700 .98rem/1.25 var(--sans); }
+  thead th { text-align: left; vertical-align: top; font: 700 .98rem/1.25 var(--font); }
   th.version {
     position: relative;
     padding: 16px 14px 14px 0;
     background: var(--bar) no-repeat top left / calc(100% - 14px) 4px;
   }
-  th.version small { display: block; margin-top: 5px; font: 400 .84rem/1.35 var(--serif); color: var(--muted); }
-  th.rowhead { width: 120px; padding: 16px 14px 16px 0; text-align: left; font: 700 1rem/1.25 var(--sans); vertical-align: top; }
-  th.rowhead small { display: block; margin-top: 4px; font: 400 .84rem/1.35 var(--serif); color: var(--muted); }
-  td { padding: 14px 14px 14px 0; border-top: 1px solid var(--line); vertical-align: middle; }
-  th.rowhead { border-top: 1px solid var(--line); }
-  audio { display: block; width: 100%; height: 40px; }
-  .missing { margin: 0; font-size: .85rem; color: var(--muted); overflow-wrap: anywhere; }
+  th.version small { display: block; margin-top: 5px; font: 400 .84rem/1.35 var(--font); color: var(--ink); }
+  th.rowhead { width: 120px; padding: 16px 14px 16px 0; text-align: left; font: 700 1rem/1.25 var(--font); vertical-align: top; }
+  th.rowhead small { display: block; margin-top: 4px; font: 400 .84rem/1.35 var(--font); color: var(--ink); }
+  td { padding: 14px 14px 14px 0; border-top: 1px solid var(--ink); vertical-align: middle; }
+  th.rowhead { border-top: 1px solid var(--ink); }
+  audio { display: block; width: 100%; height: 40px; filter: grayscale(1); }
+  .missing { margin: 0; font-size: .85rem; color: var(--ink); overflow-wrap: anywhere; }
 
-  .v-original      { --bar: linear-gradient(var(--muted), var(--muted)); --bar-v: linear-gradient(var(--muted), var(--muted)); }
-  .v-reconstructed { --bar: linear-gradient(var(--blue), var(--blue));   --bar-v: linear-gradient(var(--blue), var(--blue)); }
-  .v-latent        { --bar: linear-gradient(var(--green), var(--green)); --bar-v: linear-gradient(var(--green), var(--green)); }
-  .v-output        { --bar: linear-gradient(var(--ochre), var(--ochre)); --bar-v: linear-gradient(var(--ochre), var(--ochre)); }
-  .v-latent_output {
-    --bar: linear-gradient(90deg, var(--green) 50%, var(--ochre) 50%);
-    --bar-v: linear-gradient(180deg, var(--green) 50%, var(--ochre) 50%);
-  }
+  th.version, td { --bar: linear-gradient(var(--ink), var(--ink)); --bar-v: linear-gradient(var(--ink), var(--ink)); }
 
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
   /* ---- Casos de uso ---- */
-  .usecase { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; padding: 28px 0; border-top: 1px solid var(--line); align-items: start; }
-  .usecase h3 { margin: 0 0 8px; font: 700 1.2rem/1.25 var(--sans); }
+  .usecase { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; padding: 28px 0; border-top: 1px solid var(--ink); align-items: start; }
+  .usecase h3 { margin: 0 0 8px; font: 700 1.2rem/1.25 var(--font); }
   .usecase p { margin: 0 0 12px; max-width: 34rem; }
-  .video { position: relative; aspect-ratio: 16 / 9; background: var(--line); }
+  .video { position: relative; aspect-ratio: 16 / 9; background: #000; }
   .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-  footer { margin: 56px 0 64px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: .95rem; }
+  footer { margin: 56px 0 64px; padding-top: 20px; border-top: 1px solid var(--ink); color: var(--ink); font-size: .95rem; }
   footer p { margin: 0 0 8px; max-width: 46rem; }
 
   /* ---- Telas estreitas: cada exemplo vira um bloco com 5 players empilhados ---- */
@@ -111,10 +81,10 @@
     header { padding-top: 40px; }
     table, thead, tbody, tr, th, td { display: block; }
     thead { position: absolute; left: -9999px; }
-    tr.example { padding: 20px 0 8px; border-top: 1px solid var(--line); }
+    tr.example { padding: 20px 0 8px; border-top: 1px solid var(--ink); }
     th.rowhead { width: auto; padding: 0 0 10px; border-top: 0; }
     td { padding: 8px 0 8px 14px; border: 0; background: var(--bar-v) no-repeat left top / 4px 100%; }
-    td::before { content: attr(data-label); display: block; margin-bottom: 4px; font: 700 .9rem/1.25 var(--sans); }
+    td::before { content: attr(data-label); display: block; margin-bottom: 4px; font: 700 .9rem/1.25 var(--font); }
     .usecase { grid-template-columns: 1fr; gap: 16px; }
   }
 </style>
@@ -153,7 +123,7 @@
 
 <script>
   // Pasta que contém as subpastas de áudio.
-  const AUDIO_ROOT = "audios";
+  const AUDIO_ROOT = "audio";
 
   // As cinco versões de cada exemplo. A chave é o sufixo do nome do arquivo (NN_nome_<chave>.mp3).
   const VERSIONS = [
