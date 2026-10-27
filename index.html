@@ -134,34 +134,29 @@
     { key: "latent_output", title: "Granulated latent space and output", desc: "Both granular stages" }
   ];
 
-  // TODO: uma linha por exemplo.
-  //   folder: nome da pasta dentro de audio/ (o mesmo prefixo dos arquivos, ex.: "01_pandeiro")
-  //   label:  nome que aparece na página
-  //   note:   opcional, por exemplo os valores dos knobs usados; deixe "" para não mostrar nada
+  
   const EXAMPLES = [
     { folder: "01_sample_1", label: "Sample 1", note: "from the ESC-50 dataset" },
     { folder: "02_sample_2", label: "Sample 2", note: "from the ESC-50 dataset" },
-    { folder: "03_sample_3", label: "Sample 3", note: "" },
-    { folder: "04_sample_4", label: "Sample 4", note: "" },
-    { folder: "05_sample_5", label: "Sample 5", note: "" },
-    { folder: "06_sample_6", label: "Sample 6", note: "" },
-    { folder: "07_sample_7", label: "Sample 7", note: "" },
-    { folder: "08_sample_8", label: "Sample 8", note: "" }
+    { folder: "03_sample_3", label: "Sample 3", note: "from the Dynamic Percussion dataset" },
+    { folder: "04_sample_4", label: "Sample 4", note: "from the Dynamic Percussion dataset" },
+    { folder: "05_sample_5", label: "Sample 5", note: "from the Medley Vox dataset" },
+    { folder: "06_sample_6", label: "Sample 6", note: "from the Medley Vox dataset" },
+    { folder: "07_sample_7", label: "Sample 7", note: "from the QuartSet dataset" },
+    { folder: "08_sample_8", label: "Sample 8", note: "from the QuartSet dataset" }
   ];
 
-  // TODO: vídeo do YouTube (só o ID, a parte depois de "v=") e/ou um áudio (ex.: "audio/usecases/sergipe_stereo.mp3").
-  // Deixe "" quando não houver.
   const USE_CASES = [
     {
       title: "Live performance, Sonar Festival 2025, Barcelona",
       text: "A live collaborative performance presented through an open call for artists researching AI and music. A small-diaphragm condenser microphone captured the vibration of a metal drum, and Abapo-Synth processed the sound live to build a soundscape.",
-      youtube: "",
+      youtube: "https://drive.google.com/file/d/1u7PtBsd7BmOZSB1Q3XBFcHGX3G3TPmLA/view?usp=sharing",
       audio: ""
     },
     {
       title: "Quadraphonic sound art piece, Aracaju, Sergipe",
       text: "A piece built from a single recorded phrase, transformed with the timbre-transfer and granular modules. The latent axes and the three macro controls were automated to create settling and unsettling moments. It was first played at an experimental music exhibition in Aracaju, Sergipe, Brazil. The recording here is a stereo downmix of the quadraphonic piece.",
-      youtube: "",
+      youtube: "https://drive.google.com/file/d/1dd0dq8dTXpxq483wicGocECXgcdeulr-/view?usp=sharing",
       audio: ""
     }
   ];
