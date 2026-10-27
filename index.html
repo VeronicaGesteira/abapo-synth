@@ -100,7 +100,7 @@
 
   <main>
     <section class="intro">
-      <p>Abapo-Synth is a Max for Live device that combines a RAVE model trained on Brazilian percussion recordings with two granular stages: one in the model’s latent space and one on its audio output.</p>
+      <p>Abapo-Synth is a Max for Live device that combines a RAVE model trained on Brazilian percussion with two granular stages: one in the model’s latent space and one on its audio output.</p>
       <p>Each row below is one input sound processed five ways. Playing a clip pauses the others, so you can switch between versions and compare. All clips are loudness-normalized to −16 LUFS. The originals are mono and play on both channels.</p>
     </section>
 
@@ -150,13 +150,13 @@
     {
       title: "Live performance, Sonar Festival 2025, Barcelona",
       text: "A live collaborative performance presented through an open call for artists researching AI and music. A small-diaphragm condenser microphone captured the vibration of a metal drum, and Abapo-Synth processed the sound live to build a soundscape.",
-      youtube: "https://drive.google.com/file/d/1u7PtBsd7BmOZSB1Q3XBFcHGX3G3TPmLA/view?usp=sharing",
+      youtube: "https://drive.google.com/file/d/1u7PtBsd7BmOZSB1Q3XBFcHGX3G3TPmLA/preview",
       audio: ""
     },
     {
       title: "Quadraphonic sound art piece, Aracaju, Sergipe",
       text: "A piece built from a single recorded phrase, transformed with the timbre-transfer and granular modules. The latent axes and the three macro controls were automated to create settling and unsettling moments. It was first played at an experimental music exhibition in Aracaju, Sergipe, Brazil. The recording here is a stereo downmix of the quadraphonic piece.",
-      youtube: "https://drive.google.com/file/d/1dd0dq8dTXpxq483wicGocECXgcdeulr-/view?usp=sharing",
+      youtube: "https://drive.google.com/file/d/1dd0dq8dTXpxq483wicGocECXgcdeulr-/preview",
       audio: ""
     }
   ];
@@ -219,8 +219,16 @@
 
       if (u.youtube) {
         const wrap = el("div", { class: "video" });
+        
+        // Verifica se é um link do Google Drive ou do YouTube para montar o iframe corretamente
+        let videoSrc = u.youtube;
+        if (!videoSrc.startsWith("http")) {
+          // Se for apenas o ID clássico do YouTube
+          videoSrc = "https://www.youtube-nocookie.com/embed/" + videoSrc;
+        }
+
         wrap.appendChild(el("iframe", {
-          src: "https://www.youtube-nocookie.com/embed/" + u.youtube,
+          src: videoSrc,
           title: u.title,
           loading: "lazy",
           allow: "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
