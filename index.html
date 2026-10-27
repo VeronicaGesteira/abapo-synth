@@ -6,12 +6,6 @@
 <title>Abapo-Synth: audio examples</title>
 <meta name="description" content="Audio examples and use cases for the Abapo-Synth, a Max for Live device that combines a RAVE model trained on Brazilian percussion with granular synthesis.">
 
-<!--
-  CHECKLIST ANTES DE PUBLICAR (procure por "TODO" neste arquivo)
-  1. Lista EXAMPLES no <script>: coloque o nome de cada pasta dentro de audio/ e o nome que aparece na página.
-  2. Use cases: IDs do YouTube e/ou arquivos de áudio (deixe "" se não houver).
-  3. Estrutura esperada: index.html + audio/<pasta>/<pasta>_<versão>.mp3
--->
 
 <style>
   :root {
@@ -66,6 +60,11 @@
 
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
+  /* ---- Live Demo (Nova Seção) ---- */
+  .livedemo-section { margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--ink); }
+  .livedemo-section h3 { margin: 0 0 8px; font: 700 1.2rem/1.25 var(--font); }
+  .livedemo-section p { margin: 0 0 16px; max-width: 44rem; }
+
   /* ---- Casos de uso ---- */
   .usecase { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; padding: 28px 0; border-top: 1px solid var(--ink); align-items: start; }
   .usecase h3 { margin: 0 0 8px; font: 700 1.2rem/1.25 var(--font); }
@@ -111,6 +110,21 @@
       <tbody></tbody>
     </table>
 
+    <!-- Nova Seção de Live Demo -->
+    <section class="livedemo-section">
+      <h2>Live demo</h2>
+      <h3>Walkthrough and demonstration of the Abapo-Synth device</h3>
+      <p>Watch a complete overview of the interface, controls, and real-time audio manipulation capabilities of the Abapo-Synth in Max for Live.</p>
+      <div class="video" style="max-width: 720px;">
+        <iframe src="https://drive.google.com/file/d/1KM5l7rgop22SqXA1Wm9HtTN3K-C0Ua-u/view?usp=sharing" 
+                title="Abapo-Synth Live Demo" 
+                loading="lazy" 
+                allow="autoplay" 
+                allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
     <h2>Use cases</h2>
     <div id="usecases"></div>
   </main>
@@ -148,14 +162,14 @@
 
   const USE_CASES = [
     {
-      title: "Live performance, Sonar Festival 2025, Barcelona",
+      title: "Live performance, Mineral Neurons, Sonar Festival 2025, Barcelona",
       text: "A live collaborative performance presented through an open call for artists researching AI and music. A small-diaphragm condenser microphone captured the vibration of a metal drum, and Abapo-Synth processed the sound live to build a soundscape.",
       youtube: "https://drive.google.com/file/d/1u7PtBsd7BmOZSB1Q3XBFcHGX3G3TPmLA/preview",
       audio: ""
     },
     {
-      title: "Quadraphonic sound art piece, Aracaju, Sergipe",
-      text: "A piece built from a single recorded phrase, transformed with the timbre-transfer and granular modules. The latent axes and the three macro controls were automated to create settling and unsettling moments. It was first played at an experimental music exhibition in Aracaju, Sergipe, Brazil. The recording here is a stereo downmix of the quadraphonic piece.",
+      title: "Quadraphonic sound art piece, Nós Também Somos Máquinas",
+      text: "A piece built from a single recorded phrase, transformed with the timbre-transfer and granular modules. The latent axes and the three macro controls were automated to create settling and unsettling moments. It was first played at an experimental music exhibition in Aracaju, Sergipe, Brazil. The recording here is the stereo file of the front of the quadraphonic piece.",
       youtube: "https://drive.google.com/file/d/1dd0dq8dTXpxq483wicGocECXgcdeulr-/preview",
       audio: ""
     }
@@ -220,10 +234,8 @@
       if (u.youtube) {
         const wrap = el("div", { class: "video" });
         
-        // Verifica se é um link do Google Drive ou do YouTube para montar o iframe corretamente
         let videoSrc = u.youtube;
         if (!videoSrc.startsWith("http")) {
-          // Se for apenas o ID clássico do YouTube
           videoSrc = "https://www.youtube-nocookie.com/embed/" + videoSrc;
         }
 
